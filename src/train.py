@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score,roc_auc_score
 import pandas as pd
 import joblib
 import numpy as np
-import dispatcher
+#import dispatcher
 
 folds={
     0:[1,2,3,4],
@@ -17,14 +17,18 @@ folds={
 }
 
 
-""" TRAINING="input/train_folds.csv"
+TRAINING="input/train_folds.csv"
 TEST="input/test.csv"
-FOLD=0
-MODEL="RandomForestClassifier" """
-TRAINING=os.getenv(['TRAINING'])
+FOLD=2
+MODEL="randomforest"
+""" TRAINING=os.getenv(['TRAINING'])
 TEST=os.getenv(['TEST'])
 FOLD=os.getenv(['FOLD'])
-MODEL=os.getenv(['MODEL'])
+MODEL=os.getenv(['MODEL']) """
+MODELS={
+    "randomforest":ensemble.RandomForestClassifier(n_estimators=200,n_jobs=-1,verbose=2),
+    "extratreesclassfier":ensemble.ExtraTreesClassifier(n_estimators=200,n_jobs=-1,verbose=2)
+}
 
 if __name__=="__main__":
     df_train_main=pd.read_csv(TRAINING)
@@ -51,7 +55,7 @@ if __name__=="__main__":
         df_train.loc[:,c]=label_encoder.transform(df_train[c].values.tolist())
         df_val.loc[:,c]=label_encoder.transform(df_val[c].values.tolist())
         label_encoders[c]=label_encoder  
-model=dispatcher.MODELS[MODEL]
+model=MODELS[MODEL]
 model.fit(df_train,df_y_train)
 pred=model.predict_proba(df_val)[:,1]
 pred2=model.predict(df_val)
