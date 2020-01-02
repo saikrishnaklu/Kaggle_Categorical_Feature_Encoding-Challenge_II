@@ -10,6 +10,7 @@ TEST_DATA="input/test.csv"
    
 
 MODEL="randomforest"
+MODEL2="logisticregression"
 FOLD=0
 
 def predict():

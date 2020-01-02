@@ -21,6 +21,7 @@ TRAINING="input/train_folds.csv"
 TEST="input/test.csv"
 FOLD=2
 MODEL="randomforest"
+MODEL2="logisticregression"
 """ TRAINING=os.getenv(['TRAINING'])
 TEST=os.getenv(['TEST'])
 FOLD=os.getenv(['FOLD'])
